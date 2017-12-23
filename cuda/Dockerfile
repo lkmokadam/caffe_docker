@@ -26,6 +26,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 ENV CAFFE_ROOT=/opt/caffe
 WORKDIR $CAFFE_ROOT
+RUN cd /tmp && \
+	wget https://github.com/opencv/opencv/archive/3.2.0.zip && \
+	unzip 3.2.0.zip && \
+	rm 3.2.0.zip && \
+	mv opencv-3.2.0 OpenCV && \
+	cd OpenCV && \
+	mkdir build && \
+	cd build && \
+	cmake -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON .. && \
+	make -j4  && \
+	make install && \
+        ldconfig
+RUN rm -rf /tmp/*
 
 # FIXME: use ARG instead of ENV once DockerHub supports this
 # https://github.com/docker/hub-feedback/issues/460
