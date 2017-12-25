@@ -1,5 +1,5 @@
-FROM lkmokadam/cuda_caffe_opencv3.2
-
+FROM lkmokadam/cuda_opencv3.2
+LABEL maintainer lkmokadam[at]gmail[dot]com
 
 ENV CAFFE_ROOT=/opt/caffe
 WORKDIR $CAFFE_ROOT
